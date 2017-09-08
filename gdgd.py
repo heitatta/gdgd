@@ -5,6 +5,8 @@ from random import randint
 app = Flask(__name__)
 ask = Ask(app, "/")
 
+app.config['ASK_VERIFY_REQUESTS'] = False
+
 
 @ask.launch
 def handle_launch():
@@ -14,7 +16,7 @@ def handle_launch():
 suggest_list = ['うどん', 'すし', 'ラーメン']
 
 
-@ask.intent('DishIntent', convert={'dish': str})
+@ask.intent('DishIntent')
 def handle_dish_intent(dish):
     suggest = suggest_list[randint(0, len(suggest_list) - 1)]
     return statement(dish + 'には' + suggest + 'がいいんじゃないかな')
